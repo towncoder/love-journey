@@ -39,6 +39,7 @@ const cityCoordinates = {
     '大同': { value: [113.2950, 40.0903] },
     '延吉': { value: [129.5130, 42.8893] },
     '张家口': { value: [114.8869, 40.8118] },
+    '古北水镇': { value: [117.2673, 40.6502] },
     '乌兰察布': { value: [113.1146, 40.9945] },
     '都江堰': { value: [103.6175, 31.0040] },
     '石家庄': { value: [114.5149, 38.0423] },
@@ -63,6 +64,14 @@ const cityCoordinates = {
     // '孟买': { value: [72.8777, 19.0760] },
     '迪拜': { value: [55.2708, 25.2048] }
 };
+
+const extraVisitedCities = [
+    {
+        name: '古北水镇',
+        date: '2026-06-16',
+        description: '猫、扎染、长城'
+    }
+];
 
 async function loadConfig() {
     try {
@@ -273,7 +282,14 @@ async function initMap() {
         
         echarts.registerMap('china', geoJson);
 
-        const visitedCityNames = config.visitedCities.map(city => city.name);
+        const visitedCities = [...(config.visitedCities || [])];
+        extraVisitedCities.forEach(city => {
+            if (!visitedCities.some(item => item.name === city.name)) {
+                visitedCities.push(city);
+            }
+        });
+        const visitedCityNames = visitedCities.map(city => city.name);
+        const isNarrowMap = window.innerWidth < 600;
 
         const scatterData = [];
         Object.entries(cityCoordinates).forEach(([cityName, coords]) => {
@@ -282,10 +298,19 @@ async function initMap() {
                 name: cityName,
                 value: [...coords.value, isVisited ? 1 : 0],
                 itemStyle: {
-                    color: isVisited ? '#ff69b4' : '#e0e0e0',
-                    borderColor: isVisited ? '#ff1493' : '#ccc',
+                    color: isVisited ? '#ef7a95' : '#dfd2bf',
+                    borderColor: isVisited ? '#5bb8b6' : '#b9ad9b',
                     borderWidth: isVisited ? 3 : 2
                 },
+                label: cityName === '古北水镇' ? {
+                    position: 'top',
+                    distance: 14,
+                    backgroundColor: 'rgba(255, 253, 248, 0.98)',
+                    borderColor: '#ef7a95',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    padding: [3, 6]
+                } : undefined,
                 visited: isVisited
             });
         });
@@ -293,19 +318,19 @@ async function initMap() {
         const option = {
             tooltip: {
                 trigger: 'item',
-                backgroundColor: 'rgba(255, 182, 193, 0.9)',
-                borderColor: '#ff1493',
-                borderWidth: 2,
+                backgroundColor: 'rgba(255, 253, 248, 0.96)',
+                borderColor: '#ef7a95',
+                borderWidth: 1,
                 textStyle: {
-                    color: '#fff'
+                    color: '#382a3f'
                 },
                 formatter: function(params) {
                     if (params.componentSubType === 'effectScatter') {
-                        const cityData = config.visitedCities.find(c => c.name === params.name);
+                        const cityData = visitedCities.find(c => c.name === params.name);
                         if (cityData) {
                             return `
                                 <div style="text-align: center; padding: 5px;">
-                                    <small style="font-size: 12px;">${formatDate(cityData.date)}</small><br>
+                                    <small style="font-size: 12px;">${formatDate(cityData.date, false)}</small><br>
                                     <span style="font-size: 13px;">${cityData.description}</span>
                                 </div>
                             `;
@@ -318,15 +343,15 @@ async function initMap() {
             geo: {
                 map: 'china',
                 roam: true,
-                zoom: 1.2,
+                zoom: isNarrowMap ? 0.95 : 1.2,
                 label: {
                     show: false,
                     color: '#999',
                     fontSize: 10
                 },
                 itemStyle: {
-                    areaColor: '#fff5f8',
-                    borderColor: '#ffd1dc',
+                    areaColor: '#fff4dc',
+                    borderColor: '#cdbfaa',
                     borderWidth: 1.5
                 },
                 emphasis: {
@@ -334,8 +359,8 @@ async function initMap() {
                         show: false
                     },
                     itemStyle: {
-                        areaColor: '#ffe4ec',
-                        borderColor: '#ff69b4',
+                        areaColor: '#ffeaf0',
+                        borderColor: '#5bb8b6',
                         borderWidth: 2
                     }
                 }
@@ -354,22 +379,22 @@ async function initMap() {
                     },
                     label: {
                         formatter: '{b}',
-                        position: 'right',
+                        position: isNarrowMap ? 'top' : 'right',
                         show: true,
-                        fontSize: 14,
-                        color: '#ff1493',
+                        fontSize: isNarrowMap ? 10 : 14,
+                        color: '#382a3f',
                         fontWeight: 'bold',
-                        distance: 8,
-                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                        borderColor: '#ffb6c1',
+                        distance: isNarrowMap ? 4 : 8,
+                        backgroundColor: 'rgba(255, 253, 248, 0.94)',
+                        borderColor: '#ef7a95',
                         borderWidth: 1,
                         borderRadius: 4,
                         padding: [3, 6]
                     },
                     itemStyle: {
-                        color: '#ff69b4',
+                        color: '#ef7a95',
                         shadowBlur: 20,
-                        shadowColor: '#ff1493',
+                        shadowColor: '#ef7a95',
                         shadowOffsetX: 0,
                         shadowOffsetY: 0
                     },
@@ -379,13 +404,13 @@ async function initMap() {
                     type: 'scatter',
                     coordinateSystem: 'geo',
                     data: scatterData.filter(d => !d.visited),
-                    symbolSize: 10,
+                    symbolSize: isNarrowMap ? 7 : 10,
                     label: {
                         formatter: '{b}',
                         position: 'right',
-                        show: true,
+                        show: !isNarrowMap,
                         fontSize: 11,
-                        color: '#aaa',
+                        color: '#8d826e',
                         distance: 5
                     },
                     itemStyle: {
@@ -393,7 +418,7 @@ async function initMap() {
                         borderColor: '#bbb',
                         borderWidth: 1,
                         shadowBlur: 5,
-                        shadowColor: '#ccc'
+                        shadowColor: '#d1c5b0'
                     },
                     zlevel: 0
                 }
@@ -695,7 +720,7 @@ function openQRModal(coupon) {
                 text: useUrl,
                 width: 170,
                 height: 170,
-                colorDark: '#ff69b4',
+                colorDark: '#382a3f',
                 colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.M
             });

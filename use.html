@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         .use-container {
-            max-width: 500px;
+            width: min(500px, calc(100% - 28px));
             margin: 0 auto;
-            padding: 20px;
+            padding: 28px 0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -17,44 +17,100 @@
         }
 
         .use-card {
-            background: linear-gradient(135deg, #fff 0%, #fff5f8 100%);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.2);
+            background: linear-gradient(135deg, rgba(255, 253, 246, 0.96), rgba(255, 248, 235, 0.9));
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: clamp(28px, 7vw, 42px);
+            box-shadow: var(--shadow);
             text-align: center;
             width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .use-card::before {
+            content: '';
+            position: absolute;
+            inset: 14px;
+            border: 1px dashed rgba(201, 69, 56, 0.24);
+            pointer-events: none;
         }
 
         .use-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            position: relative;
+            width: 82px;
+            height: 82px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 18px;
+            font-size: 3rem;
+            background: linear-gradient(135deg, rgba(255, 215, 223, 0.5), rgba(248, 220, 136, 0.36));
+            border: 1px solid rgba(239, 122, 149, 0.24);
+            border-radius: 999px;
+        }
+
+        .use-icon-coupon::before {
+            width: 38px;
+            height: 28px;
+            background: var(--lemon);
+            border: 2px solid var(--stamp);
+            border-radius: 8px;
+            box-shadow: inset 0 -7px 0 rgba(239, 122, 149, 0.18);
+        }
+
+        .use-icon-coupon::after {
+            width: 17px;
+            height: 17px;
+            background: var(--route);
+            border-radius: 999px;
+        }
+
+        .use-icon-done::before {
+            width: 42px;
+            height: 42px;
+            background: var(--route);
+            border-radius: 999px;
+        }
+
+        .use-icon-done::after {
+            width: 20px;
+            height: 11px;
+            border-left: 5px solid var(--paper-soft);
+            border-bottom: 5px solid var(--paper-soft);
+            transform: rotate(-45deg) translate(1px, -2px);
         }
 
         .use-title {
-            font-size: 1.5rem;
-            color: #5a4a5a;
-            margin-bottom: 10px;
+            color: var(--ink);
+            font-family: var(--font-cute);
+            font-size: 1.45rem;
+            font-weight: 900;
+            margin-bottom: 8px;
         }
 
         .use-duration {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #ff69b4;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
+            color: var(--stamp);
+            font-family: var(--font-ui);
+            font-size: clamp(2.2rem, 10vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1;
         }
 
         .use-info {
-            background: rgba(255, 228, 236, 0.5);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
+            padding: 14px 18px;
+            background: rgba(251, 242, 223, 0.72);
+            border: 1px solid var(--line);
+            border-radius: 6px;
         }
 
         .use-info-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 182, 193, 0.3);
+            gap: 18px;
+            padding: 11px 0;
+            border-bottom: 1px dashed rgba(38, 34, 58, 0.18);
         }
 
         .use-info-item:last-child {
@@ -62,30 +118,34 @@
         }
 
         .use-info-label {
-            color: #8a7a8a;
+            color: var(--muted);
         }
 
         .use-info-value {
-            color: #5a4a5a;
-            font-weight: 500;
+            color: var(--ink);
+            font-family: Inter, sans-serif;
+            font-weight: 700;
+            text-align: right;
         }
 
         .use-btn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+            min-height: 54px;
+            padding: 0 18px;
+            background: linear-gradient(135deg, var(--stamp), #f39caf);
             border: none;
-            border-radius: 15px;
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: 600;
+            border-radius: 999px;
+            color: var(--paper-soft);
+            font-family: var(--font-soft);
+            font-size: 1.15rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.25s ease, background 0.25s ease;
         }
 
         .use-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(135deg, #e96f8b, var(--route));
         }
 
         .use-btn:disabled {
@@ -95,26 +155,27 @@
         }
 
         .use-btn.success {
-            background: linear-gradient(135deg, #90EE90 0%, #32CD32 100%);
+            background: var(--route);
         }
 
         .status-badge {
             display: inline-block;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            padding: 5px 13px;
+            border-radius: 999px;
+            font-family: var(--font-ui);
+            font-size: 0.78rem;
+            font-weight: 800;
         }
 
         .status-badge.available {
-            background: linear-gradient(135deg, #90EE90 0%, #32CD32 100%);
-            color: #fff;
+            background: rgba(91, 184, 182, 0.14);
+            color: var(--route);
         }
 
         .status-badge.used {
-            background: linear-gradient(135deg, #ccc 0%, #999 100%);
-            color: #fff;
+            background: rgba(38, 34, 58, 0.1);
+            color: var(--muted);
         }
 
         .error-card {
@@ -122,29 +183,55 @@
         }
 
         .error-icon {
+            position: relative;
             font-size: 4rem;
             margin-bottom: 20px;
+            width: 82px;
+            height: 82px;
+            margin-left: auto;
+            margin-right: auto;
+            background: rgba(239, 122, 149, 0.14);
+            border-radius: 999px;
+        }
+
+        .error-icon-flat::before,
+        .error-icon-flat::after {
+            top: 38px;
+            left: 23px;
+            width: 36px;
+            height: 6px;
+            background: var(--stamp);
+            border-radius: 999px;
+        }
+
+        .error-icon-flat::before {
+            transform: rotate(45deg);
+        }
+
+        .error-icon-flat::after {
+            transform: rotate(-45deg);
         }
 
         .error-title {
             font-size: 1.5rem;
-            color: #5a4a5a;
+            font-family: var(--font-cute);
+            color: var(--ink);
             margin-bottom: 10px;
         }
 
         .error-message {
-            color: #8a7a8a;
+            color: var(--muted);
             margin-bottom: 20px;
         }
 
         .back-link {
             display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
-            border-radius: 25px;
-            color: #fff;
+            padding: 12px 26px;
+            background: var(--ink);
+            border-radius: 999px;
+            color: var(--paper-soft);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 800;
             transition: transform 0.3s ease;
         }
 
@@ -160,8 +247,8 @@
         .loading-spinner {
             width: 50px;
             height: 50px;
-            border: 4px solid #ffe4ec;
-            border-top-color: #ff69b4;
+            border: 4px solid rgba(38, 34, 58, 0.12);
+            border-top-color: var(--stamp);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
@@ -176,11 +263,11 @@
     <div class="use-container">
         <div id="loading" class="loading">
             <div class="loading-spinner"></div>
-            <p style="color: #8a7a8a;">加载中...</p>
+            <p style="color: var(--muted);">加载中...</p>
         </div>
 
         <div id="use-card" class="use-card" style="display: none;">
-            <div class="use-icon">💆</div>
+            <div class="use-icon use-icon-coupon" aria-hidden="true"></div>
             <span class="status-badge available" id="status-badge">未使用</span>
             <h1 class="use-title" id="coupon-title">恋爱卡</h1>
             <div class="use-duration" id="coupon-duration">10分钟</div>
@@ -200,7 +287,7 @@
         </div>
 
         <div id="used-card" class="use-card" style="display: none;">
-            <div class="use-icon">✅</div>
+            <div class="use-icon use-icon-done" aria-hidden="true"></div>
             <h1 class="use-title">已使用</h1>
             <div class="use-duration" id="used-duration">10分钟</div>
             <div class="use-info">
@@ -213,7 +300,7 @@
         </div>
 
         <div id="error-card" class="use-card error-card" style="display: none;">
-            <div class="error-icon">❌</div>
+            <div class="error-icon error-icon-flat" aria-hidden="true"></div>
             <h1 class="error-title">出错了</h1>
             <p class="error-message" id="error-message">无效的按摩券</p>
             <!-- <a href="index.html" class="back-link">返回首页</a> -->

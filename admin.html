@@ -316,20 +316,277 @@
             padding: 40px;
             color: #8a7a8a;
         }
+
+        .admin-container {
+            width: min(760px, calc(100% - 28px));
+            max-width: none;
+            padding: 36px 0 56px;
+        }
+
+        .login-card,
+        .issue-card,
+        .stats-card,
+        .coupon-list {
+            background: linear-gradient(135deg, rgba(255, 253, 246, 0.96), rgba(255, 248, 235, 0.9));
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .login-card {
+            margin-top: 14vh;
+            padding: clamp(30px, 7vw, 46px);
+        }
+
+        .login-title,
+        .admin-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--ink);
+            font-family: var(--font-cute);
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .login-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+        }
+
+        .admin-title {
+            font-size: clamp(1.55rem, 4vw, 2.3rem);
+        }
+
+        .admin-header {
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .issue-title,
+        .coupon-list-title {
+            color: var(--ink);
+            font-family: var(--font-cute);
+            font-weight: 400;
+        }
+
+        .login-input,
+        .form-select,
+        .form-input {
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            color: var(--ink);
+            background: rgba(255, 253, 246, 0.92);
+            font-family: var(--font-soft);
+            font-size: 1.08rem;
+        }
+
+        .login-input:focus,
+        .form-select:focus,
+        .form-input:focus {
+            border-color: var(--route);
+            box-shadow: 0 0 0 4px rgba(43, 138, 166, 0.12);
+        }
+
+        .login-btn,
+        .issue-btn,
+        .logout-btn {
+            border-radius: 999px;
+            font-family: var(--font-soft);
+            font-size: 1.08rem;
+            font-weight: 800;
+            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .login-btn,
+        .issue-btn {
+            background: linear-gradient(135deg, var(--stamp), #f39caf);
+            color: var(--paper-soft);
+        }
+
+        .login-btn:hover,
+        .issue-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #e96f8b, var(--route));
+            box-shadow: none;
+        }
+
+        .logout-btn {
+            color: var(--ink);
+            background: rgba(255, 253, 246, 0.8);
+            border: 1px solid var(--line);
+        }
+
+        .logout-btn:hover {
+            color: var(--paper-soft);
+            background: var(--ink);
+            border-color: var(--ink);
+        }
+
+        .form-label,
+        .coupon-item-title {
+            color: var(--ink);
+            font-family: var(--font-soft);
+        }
+
+        .stat-item,
+        .coupon-item {
+            background: rgba(251, 242, 223, 0.72);
+            border: 1px solid rgba(38, 34, 58, 0.1);
+            border-radius: 6px;
+        }
+
+        .stat-number {
+            color: var(--stamp);
+            font-family: var(--font-ui);
+            font-weight: 800;
+        }
+
+        .stat-label,
+        .coupon-item-meta,
+        .empty-list {
+            color: var(--muted);
+            font-family: var(--font-soft);
+        }
+
+        .coupon-item:hover {
+            background: rgba(255, 253, 246, 0.95);
+            transform: translateX(4px);
+        }
+
+        .coupon-item-status.available {
+            color: var(--route);
+            background: rgba(91, 184, 182, 0.14);
+        }
+
+        .coupon-item-status.used {
+            color: var(--stamp);
+            background: rgba(239, 122, 149, 0.12);
+        }
+
+        .delete-btn {
+            background: var(--stamp);
+            border-radius: 999px;
+            font-weight: 800;
+        }
+
+        .delete-btn:hover {
+            background: var(--ink);
+        }
+
+        .message.success {
+            color: #1f6b53;
+            background: rgba(91, 184, 182, 0.14);
+            border: 1px solid rgba(91, 184, 182, 0.26);
+        }
+
+        .message.error {
+            color: var(--stamp);
+            background: rgba(239, 122, 149, 0.12);
+            border: 1px solid rgba(239, 122, 149, 0.26);
+        }
+
+        .title-flat-icon {
+            position: relative;
+            display: inline-grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            background: rgba(248, 220, 136, 0.65);
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .title-icon-lock::before {
+            width: 18px;
+            height: 14px;
+            bottom: 7px;
+            background: var(--route);
+            border-radius: 4px;
+        }
+
+        .title-icon-lock::after {
+            width: 15px;
+            height: 13px;
+            top: 7px;
+            border: 4px solid var(--stamp);
+            border-bottom: 0;
+            border-radius: 999px 999px 0 0;
+        }
+
+        .title-icon-coupon::before {
+            width: 22px;
+            height: 16px;
+            background: var(--lemon);
+            border: 2px solid var(--stamp);
+            border-radius: 5px;
+        }
+
+        .title-icon-coupon::after {
+            width: 9px;
+            height: 9px;
+            background: var(--route);
+            border-radius: 999px;
+        }
+
+        .coupon-item-icon.coupon-flat-icon {
+            position: relative;
+            display: inline-grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            flex: 0 0 38px;
+            font-size: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 223, 0.5), rgba(248, 220, 136, 0.4));
+            border: 1px solid rgba(239, 122, 149, 0.22);
+            border-radius: 999px;
+        }
+
+        .coupon-item-icon.coupon-flat-icon::before {
+            width: 22px;
+            height: 16px;
+        }
+
+        .coupon-item-icon.coupon-flat-icon::after {
+            width: 9px;
+            height: 9px;
+        }
+
+        @media (max-width: 620px) {
+            .admin-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coupon-item,
+            .coupon-item-actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .delete-btn {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="admin-container">
         <div class="login-card" id="login-card">
-            <h1 class="login-title">🔐 登录</h1>
+            <h1 class="login-title"><span class="title-flat-icon title-icon-lock" aria-hidden="true"></span>登录</h1>
             <input type="password" class="login-input" id="passcode-input" placeholder="请输入口令">
             <button class="login-btn" id="login-btn">进入</button>
-            <p id="login-error" style="color: #ff69b4; margin-top: 15px; display: none;">口令错误，请重试</p>
+            <p id="login-error" style="color: var(--stamp); margin-top: 15px; display: none;">口令错误，请重试</p>
         </div>
 
         <div class="admin-panel" id="admin-panel">
             <div class="admin-header">
-                <h1 class="admin-title">💆 恋爱卡管理</h1>
+                <h1 class="admin-title"><span class="title-flat-icon title-icon-coupon" aria-hidden="true"></span>恋爱卡管理</h1>
                 <button class="logout-btn" id="logout-btn">退出</button>
             </div>
 
@@ -455,7 +712,7 @@
             container.innerHTML = sortedCoupons.map(coupon => `
                 <div class="coupon-item" data-coupon-id="${coupon.id}">
                     <div class="coupon-item-info">
-                        <span class="coupon-item-icon">${coupon.icon}</span>
+                        <span class="coupon-item-icon coupon-flat-icon" aria-hidden="true"></span>
                         <div class="coupon-item-details">
                             <span class="coupon-item-title">${coupon.title} #${coupon.id}</span>
                             <span class="coupon-item-meta">${coupon.duration}${coupon.durationUnit} · ${coupon.acquiredDate}</span>
@@ -503,7 +760,7 @@
 
             try {
                 const coupon = {
-                    icon: '💆',
+                    icon: 'coupon',
                     title: title,
                     duration: duration,
                     durationUnit: '分钟'

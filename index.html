@@ -8,36 +8,39 @@
 </head>
 <body>
     <audio id="bg-music" loop autoplay playsinline>
-        <source src="xiaomeiman.mp3" type="audio/mpeg">
+        <source src="assets/media/xiaomeiman.mp3" type="audio/mpeg">
     </audio>
     
-    <div class="music-control" id="music-control">
-        <span class="music-icon">🎵</span>
+    <div class="music-control" id="music-control" aria-label="音乐">
+        <span class="music-icon" aria-hidden="true"></span>
     </div>
     
-    <div class="menu-control" id="menu-control">
-        <span class="menu-icon">☰</span>
+    <div class="menu-control" id="menu-control" aria-label="菜单">
+        <span class="menu-icon" aria-hidden="true"></span>
     </div>
     
     <div class="menu-overlay" id="menu-overlay">
         <div class="menu-content">
             <button class="menu-close" id="menu-close">✕</button>
             <nav class="menu-nav">
-                <a href="#" class="menu-item active" data-page="home">🏠 首页</a>
-                <a href="#" class="menu-item" data-page="coupons">💝 恋爱卡</a>
+                <a href="#" class="menu-item active" data-page="home">首页</a>
+                <a href="#" class="menu-item" data-page="coupons">恋爱卡</a>
             </nav>
         </div>
     </div>
     
     <div class="container" id="page-home">
-        <!-- <header class="header">
-            <h1 class="title">执子之手，与子偕老</h1>
-        </header> -->
-
         <section class="love-time-section">
-                            <h2 class="section-title" id="love-title">福福&老李</h2>
+            <div class="journey-kicker">Tiny Love Scrapbook</div>
+            <h1 class="hero-title" id="love-title">福福&老李</h1>
+            <p class="hero-copy">把每天的小心动、一起去过的城市、偷偷许下的约定，都贴进我们的手帐里。</p>
 
             <div class="love-time-card">
+                <div class="route-line" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
                 <div class="time-display">
                     <div class="time-item">
                         <span class="time-number" id="days">0</span>
@@ -61,6 +64,7 @@
 
         <section class="milestones-section">
             <h2 class="section-title">岁月留痕</h2>
+            <p class="section-note">按时间翻阅那些让日常变甜的小片段。</p>
             <div class="milestones-carousel">
                 <div class="milestones-track" id="milestones-container">
                 </div>
@@ -71,6 +75,7 @@
 
         <section class="goals-section">
             <h2 class="section-title">共许白头</h2>
+            <p class="section-note">还没抵达的地方，先盖一枚可爱的约定章。</p>
             <div class="goals-carousel">
                 <div class="goals-track" id="goals-container">
                 </div>
@@ -81,21 +86,18 @@
 
         <section class="map-section">
             <h2 class="section-title">山河共赏</h2>
+            <p class="section-note">地图不是目的地清单，是一起散步到更远地方的证据。</p>
             <div class="map-container">
                 <div id="asia-map" class="asia-map"></div>
             </div>
         </section>
 
-        <!-- <footer class="footer">
-            <p>💝 愿得一心人，白头不相离 💝</p>
-        </footer> -->
-    </div>
-
     </div>
     
     <div class="container page-hidden" id="page-coupons">
         <section class="coupons-section">
-            <h2 class="section-title">💝 恋爱卡</h2>
+            <h2 class="section-title">恋爱卡</h2>
+            <p class="section-note">一张可以兑换的小约定，留给刚刚好的今天。</p>
             <div class="coupons-tabs">
                 <button class="tab-btn active" data-filter="all">全部</button>
                 <button class="tab-btn" data-filter="available">未使用</button>

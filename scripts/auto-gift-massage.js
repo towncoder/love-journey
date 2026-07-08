@@ -83,7 +83,7 @@ async function addMassageCoupon(coupon) {
 // 主函数
 async function main() {
   console.log('=================================');
-  console.log('🎁 开始自动赠送按摩卡');
+  console.log('开始自动赠送按摩卡');
   console.log('=================================');
   console.log(`标题: ${couponConfig.title}`);
   console.log(`时长: ${couponConfig.duration} 分钟`);
@@ -100,7 +100,7 @@ async function main() {
 
     // 创建按摩卡对象
     const coupon = {
-      icon: '💆',
+      icon: 'coupon',
       title: couponConfig.title,
       duration: couponConfig.duration,
       durationUnit: '分钟'
@@ -109,7 +109,7 @@ async function main() {
     // 添加到 OSS
     const result = await addMassageCoupon(coupon);
     
-    console.log('✅ 按摩卡赠送成功！');
+    console.log('按摩卡赠送成功！');
     console.log('---------------------------------');
     console.log(`ID: ${result.id}`);
     console.log(`标题: ${result.title}`);
@@ -119,7 +119,7 @@ async function main() {
     console.log('=================================');
     
   } catch (error) {
-    console.error('❌ 赠送失败:', error.message);
+    console.error('赠送失败:', error.message);
     process.exit(1);
   }
 }
